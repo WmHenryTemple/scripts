@@ -1,0 +1,39 @@
+ void plotSimTree(){
+  TCanvas *c1=new TCanvas("c1","Single Arm Tree",800,600);
+  TFile *f1;
+  TTree *tr1;
+
+ f1=new TFile("/work/hallc/shms/wmhenry/mc-single-arm/worksim/plot.root");
+ tr1=(TTree*)f1->Get("h1411");
+
+ TH2F *h1=new TH2F("h1","Focal Plane Position",1000,-50,50,1000,50,50);
+ h1->GetXaxis()->SetTitle("X(cm) psxfp"); 
+ h1->GetYaxis()->SetTitle("Y(cm) psyfp"); 
+
+ TH2F *h4=new TH2F("h4","Sieve Hole Number",51,-10,10,50,-10,10);
+ h4->GetXaxis()->SetTitle("X Hole "); 
+ h4->GetYaxis()->SetTitle("Y Hole"); 
+
+ TH2F *h5=new TH2F("h5","Sieve Position",4000,-20,20,2000,-10,10);
+ h5->GetXaxis()->SetTitle("X(cm)"); 
+ h5->GetYaxis()->SetTitle("Y(cm)"); 
+
+
+
+
+
+ tr1->Project("h1","psyfp:psxfp","","COLZ");
+ tr1->Project("h4","ysnum:xsnum","","COLZ");
+ tr1->Project("h5","ysieve:xsieve","","COLZ");
+
+ c1->Divide(3,2);
+ c1->cd(1);
+ h1->Draw("COLZ");
+
+ c1->cd(4);
+ h4->Draw("COLZ");
+
+ c1->cd(5);
+ h5->Draw("COLZ");
+
+}
