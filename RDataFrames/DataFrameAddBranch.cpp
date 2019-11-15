@@ -23,7 +23,8 @@ int DataFrameAddBranch(){
     hx->SetLineColor(kRed);
     c->cd(2);
     hxy->Draw("COLZ");
-
     c->Print("out.pdf");
+
+    //    d_mod.Snapshot("newtree","shms3021.root");
     return 0;
 }
